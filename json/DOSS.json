@@ -1,0 +1,19 @@
+{
+ "Naslov":"Dos",
+ "Godina":2018,
+ "Ocjena (10)":4.9,
+ "Težina (5)":1.4,
+ "Opis":"A slightly more mathy follow up to the calssic game of UNO.",
+ "Trajanje (min)":20,
+ "Potreban prostor":"S",
+ "Ploča za igru":false,
+ "Karte":true,
+ "Žetoni":false,
+ "Figurice":false,
+ "Kockice":false,
+ "Tablica za bodove":false,
+ "Kooperativni način":false,
+ "3+":false,
+ "Min. br. igrača":2,
+ "Max. br. igrača":4
+}

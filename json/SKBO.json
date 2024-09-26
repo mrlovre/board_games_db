@@ -1,0 +1,19 @@
+{
+ "Naslov":"Skip-Bo",
+ "Godina":1967,
+ "Ocjena (10)":5.6,
+ "Težina (5)":1.2,
+ "Opis":"Build runs from 1 to 12 and be the first to play all the cards from your deck.",
+ "Trajanje (min)":20,
+ "Potreban prostor":"M",
+ "Ploča za igru":false,
+ "Karte":true,
+ "Žetoni":false,
+ "Figurice":false,
+ "Kockice":false,
+ "Tablica za bodove":false,
+ "Kooperativni način":false,
+ "3+":false,
+ "Min. br. igrača":2,
+ "Max. br. igrača":6
+}

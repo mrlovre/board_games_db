@@ -1,0 +1,19 @@
+{
+ "Naslov":"All You Can Eat",
+ "Godina":2022,
+ "Ocjena (10)":5.5,
+ "Težina (5)":1.5,
+ "Opis":"Fill up on the highest scoring food combinations to claim victory in this party game.",
+ "Trajanje (min)":30,
+ "Potreban prostor":"M",
+ "Ploča za igru":false,
+ "Karte":true,
+ "Žetoni":false,
+ "Figurice":false,
+ "Kockice":false,
+ "Tablica za bodove":false,
+ "Kooperativni način":false,
+ "3+":false,
+ "Min. br. igrača":2,
+ "Max. br. igrača":5
+}

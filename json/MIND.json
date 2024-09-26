@@ -1,0 +1,19 @@
+{
+ "Naslov":"The Mind",
+ "Godina":2018,
+ "Ocjena (10)":6.8,
+ "Težina (5)":1.07,
+ "Opis":"Play your cards in ascending order without communicating. Timing is key!",
+ "Trajanje (min)":20,
+ "Potreban prostor":"S",
+ "Ploča za igru":false,
+ "Karte":true,
+ "Žetoni":false,
+ "Figurice":false,
+ "Kockice":false,
+ "Tablica za bodove":false,
+ "Kooperativni način":true,
+ "3+":false,
+ "Min. br. igrača":2,
+ "Max. br. igrača":4
+}
