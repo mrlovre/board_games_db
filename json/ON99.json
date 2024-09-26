@@ -1,0 +1,19 @@
+{
+ "Naslov":"Ono 99",
+ "Godina":1980,
+ "Ocjena (10)":5.5,
+ "Težina (5)":1.17,
+ "Opis":"Avoid pushing the pile over 99!",
+ "Trajanje (min)":20,
+ "Potreban prostor":"S",
+ "Ploča za igru":false,
+ "Karte":true,
+ "Žetoni":false,
+ "Figurice":false,
+ "Kockice":false,
+ "Tablica za bodove":false,
+ "Kooperativni način":false,
+ "3+":false,
+ "Min. br. igrača":2,
+ "Max. br. igrača":8
+}

@@ -1,0 +1,19 @@
+{
+ "Naslov":"Monopoly Bid",
+ "Godina":2020,
+ "Ocjena (10)":5.7,
+ "Težina (5)":1.09,
+ "Opis":"Buy, swap, or steal properties to complete color sets.",
+ "Trajanje (min)":15,
+ "Potreban prostor":"S",
+ "Ploča za igru":false,
+ "Karte":true,
+ "Žetoni":false,
+ "Figurice":false,
+ "Kockice":false,
+ "Tablica za bodove":false,
+ "Kooperativni način":false,
+ "3+":false,
+ "Min. br. igrača":2,
+ "Max. br. igrača":5
+}
