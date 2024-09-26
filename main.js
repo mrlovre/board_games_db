@@ -25,8 +25,8 @@ const argv = minimist(process.argv.slice(2));
     await page.setViewport({width: 768, height: 620, deviceScaleFactor: 2.0});
 
     for (const name of argv["_"]) {
-        let boxBase64 =  base64_encode(`./box/${name}.png`);
-        let showBase64 = base64_encode(`./show/${name}.png`);
+        let boxBase64 =  base64_encode(`./box/${name}.jpg`);
+        let showBase64 = base64_encode(`./show/${name}.jpg`);
 
         let data = require(`./json/${name}.json`);
         data["box"] = boxBase64;
