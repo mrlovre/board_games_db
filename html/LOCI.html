@@ -27,20 +27,72 @@
             position: absolute;
             -webkit-background-size: cover;
             /*-webkit-filter: blur(100px);*/
-            opacity: 0.15;
+            opacity: 0.2;
         }
 
         .bg-purple-800 {
             background-color: var(--bs-purple-800);
         }
+
+        .icon-overlay {
+            position: relative;
+            display: inline-block;
+            top: 4px;
+        }
+
+        .icon-overlay .overlay-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, calc(-50% - 3px));
+            font-weight: bold;
+        }
+
+        .rating-low {
+            color: var(--bs-pink);
+        }
+
+        .rating-mid-low {
+            color: var(--bs-red);
+        }
+
+        .rating-mid {
+            color: var(--bs-teal);
+        }
+
+        .rating-mid-high {
+            color: var(--bs-green);
+        }
+
+        .rating-high {
+            color: var(--bs-blue);
+        }
+
+        .rating-epic {
+            color: var(--bs-indigo);
+        }
+
+        .rating-legendary {
+            color: var(--bs-purple);
+        }
+
+        .rating-text {
+            color: var(--bs-white);
+        }
+
+        :is(.rating-low, .rating-mid-low) .rating-text {
+            color: var(--bs-black);
+        }
+
     </style>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg bg-purple-800">
     <div class="container-fluid justify-content-center">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand fs-1" href="#" style="font-variant: small-caps;">
             <i class="bi bi-dice-4-fill pe-1"></i>
             <b>Game Night</b>
+            <i class="bi bi-dice-3-fill ps-1"></i>
         </a>
     </div>
 </nav>
@@ -51,74 +103,105 @@
         </div>
         <div class="col-9">
             <div class="row align-items-center justify-content-between">
-                <h1 class="col">Lost Cities
-                    <span class="text-secondary">(1999)</span>
-                </h1>
+                <h1 class="col fw-bold mb-0" style="/*font-size: 48px;*/">Lost Cities</h1>
+            </div>
+            <div class="row">
+                <div class="col text-secondary">
+                    
+                    
+                        
+                            <button class="btn btn-outline-secondary btn-sm me-1 py-0 px-1">Card Game</button>
+                        
+                    
+                </div>
+
+                <ul class="col-auto mb-2 list-inline text-secondary">
+                    
+                    
+                        <li class="list-inline-item me-1">1999</li>
+                        <li class="list-inline-item me-1">&bull;</li>
+                    
+
+                    
+                    
+
+                    
+                    
+                </ul>
             </div>
 
             
             
                 
             
-            <p>Krenite u potragu, ali pazite da Vaši pronalasci nadmaše cijene Vaših avantura.</p>
+            <h5 class="fw-semibold" style="min-height: 48px;">Krenite u potragu, ali pazite da Vaši pronalasci nadmaše cijenu Vaših avantura.</h5>
 
-            <span class="fs-1">
-                <i class="bi bi-hexagon-fill text-warning"></i>
-            </span>
 
-            <dl class="row mb-0">
-                <dt class="col-auto">
-                    Br. igrača:
-                </dt>
+            <div class="row align-items-center">
+                <div class="col" style="font-size: 72px;">
+                    
+                    
+
+                    
+                    
+                    
+                    
+                    
+                    
+
+                    <div class="icon-overlay rating-mid-high">
+
+                        <i class="bi bi-hexagon-fill"></i>
+                        <div class="overlay-text fs-1 rating-text">7.2</div>
+                    </div>
+                </div>
+
+                
+
                 
                 
-                
 
                 
-                <dd class="col">
+                <div class="col fs-1" style="">
+                    
+                        <i class="bi bi-person-fill" style="margin-right: -10px;"></i>
+                    
+                        <i class="bi bi-person-fill" style="margin-right: -10px;"></i>
                     
                     
-                        <i class="bi bi-person-fill" style="margin-right: -6px;"></i>
-                    
-                        <i class="bi bi-person-fill" style="margin-right: -6px;"></i>
-                    
-                    
-                </dd>
+                </div>
+            </div>
 
-                <dt class="col-auto">
-                    Trajanje:
-                </dt>
-                <dd class="col">
+            <div class="row" style="font-size: 48px;">
+                <div class="col">
                     
-                    <i class="bi bi-hourglass" style="margin-right: -6px;"></i>
+                    <i class="bi bi-clock-fill" style="margin-right: -4px;"></i>
                     
-                        <i class="bi bi-hourglass" style="margin-right: -6px;"></i>
+                        <i class="bi bi-clock-fill" style="margin-right: -4px;"></i>
                     
                     
-                        <i class="bi bi-hourglass text-secondary" style="margin-right: -6px;"></i>
+                        <i class="bi bi-clock-fill text-secondary" style="margin-right: -4px;"></i>
                     
-                </dd>
+                </div>
 
-                <dt class="col-auto">
-                    Težina:
-                </dt>
-                <dd class="col">
+                <div class="col">
                     
                     
                     
-                        <i class="bi bi-lightning-charge-fill" style="margin-right: -6px;"></i>
+                        <i class="bi bi-puzzle-fill" style="margin-right: -5px;"></i>
                     
                     
-                        <i class="bi bi-lightning-charge-fill text-secondary" style="margin-right: -6px;"></i>
+                        <i class="bi bi-puzzle-fill text-secondary" style="margin-right: -5px;"></i>
                     
-                        <i class="bi bi-lightning-charge-fill text-secondary" style="margin-right: -6px;"></i>
+                        <i class="bi bi-puzzle-fill text-secondary" style="margin-right: -5px;"></i>
                     
-                        <i class="bi bi-lightning-charge-fill text-secondary" style="margin-right: -6px;"></i>
+                        <i class="bi bi-puzzle-fill text-secondary" style="margin-right: -5px;"></i>
                     
-                        <i class="bi bi-lightning-charge-fill text-secondary" style="margin-right: -6px;"></i>
+                        <i class="bi bi-puzzle-fill text-secondary" style="margin-right: -5px;"></i>
                     
-                </dd>
-            </dl>
+                </div>
+            </div>
+
         </div>
     </div>
 </article>

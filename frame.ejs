@@ -27,20 +27,72 @@
             position: absolute;
             -webkit-background-size: cover;
             /*-webkit-filter: blur(100px);*/
-            opacity: 0.15;
+            opacity: 0.2;
         }
 
         .bg-purple-800 {
             background-color: var(--bs-purple-800);
         }
+
+        .icon-overlay {
+            position: relative;
+            display: inline-block;
+            top: 4px;
+        }
+
+        .icon-overlay .overlay-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, calc(-50% - 3px));
+            font-weight: bold;
+        }
+
+        .rating-low {
+            color: var(--bs-pink);
+        }
+
+        .rating-mid-low {
+            color: var(--bs-red);
+        }
+
+        .rating-mid {
+            color: var(--bs-teal);
+        }
+
+        .rating-mid-high {
+            color: var(--bs-green);
+        }
+
+        .rating-high {
+            color: var(--bs-blue);
+        }
+
+        .rating-epic {
+            color: var(--bs-indigo);
+        }
+
+        .rating-legendary {
+            color: var(--bs-purple);
+        }
+
+        .rating-text {
+            color: var(--bs-white);
+        }
+
+        :is(.rating-low, .rating-mid-low) .rating-text {
+            color: var(--bs-black);
+        }
+
     </style>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg bg-purple-800">
     <div class="container-fluid justify-content-center">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand fs-1" href="#" style="font-variant: small-caps;">
             <i class="bi bi-dice-4-fill pe-1"></i>
             <b>Game Night</b>
+            <i class="bi bi-dice-3-fill ps-1"></i>
         </a>
     </div>
 </nav>
@@ -51,87 +103,115 @@
         </div>
         <div class="col-9">
             <div class="row align-items-center justify-content-between">
-                <h1 class="col"><%= data["Naslov"]; %>
-                    <span class="text-secondary">(<%= data["Godina"]; %>)</span>
-                </h1>
+                <h1 class="col fw-bold mb-0" style="/*font-size: 48px;*/"><%= data["Naslov"]; %></h1>
+            </div>
+            <div class="row">
+                <div class="col text-secondary">
+                    <% let genre = data["Žanr"]; %>
+                    <% if (genre) { %>
+                        <% for (const entry of genre.split(",")) { %>
+                            <button class="btn btn-outline-secondary btn-sm me-1 py-0 px-1"><%= entry.trim(); %></button>
+                        <% } %>
+                    <% } %>
+                </div>
+
+                <ul class="col-auto mb-2 list-inline text-secondary">
+                    <% let year = data["Godina"]; %>
+                    <% if (year) { %>
+                        <li class="list-inline-item me-1"><%= year; %></li>
+                        <li class="list-inline-item me-1">&bull;</li>
+                    <% } %>
+
+                    <% let designer = data["Dizajner"]; %>
+                    <% if (designer) { %>
+                        <li class="list-inline-item me-1"><%= designer; %></li>
+                        <li class="list-inline-item me-1">&bull;</li>
+                    <% } %>
+
+                    <% let publisher = data["Izdavač"]; %>
+                    <% if (publisher) { %>
+                        <li class="list-inline-item"><%= publisher; %></li>
+                    <% } %>
+                </ul>
             </div>
 
             <% let desc; %>
-            <% if (data["Opis (HR)"].length) { %>
+            <% if (data["Opis (HR)"]) { %>
                 <% desc = data["Opis (HR)"]; %>
             <% } else { %>
                 <% desc = data["Opis (EN)"]; %>
             <% } %>
-            <p><%= desc; %></p>
+            <h5 class="fw-semibold" style="min-height: 48px;"><%= desc; %></h5>
 
-            <dl class="row">
-                <dt class="col-auto">
-                    Ocjena:
-                </dt>
-                <dd class="col">
-            <span class="fs-1">
-                <i class="bi bi-hexagon-fill text-warning"></i>
-            </span>
-                </dd>
-            </dl>
 
-            <dl class="row">
-                <dt class="col-auto">
-                    Br. igrača:
-                </dt>
+            <div class="row align-items-center">
+                <div class="col" style="font-size: 72px;">
+                    <% let rating = data["Ocjena (10)"]; %>
+                    <% let ratingClass = "rating-low"; %>
+
+                    <% if (rating >= 5.0) ratingClass = "rating-mid-low"; %>
+                    <% if (rating >= 5.8) ratingClass = "rating-mid"; %>
+                    <% if (rating >= 7.0) ratingClass = "rating-mid-high"; %>
+                    <% if (rating >= 7.3) ratingClass = "rating-high"; %>
+                    <% if (rating >= 7.5) ratingClass = "rating-epic"; %>
+                    <% if (rating >= 7.9) ratingClass = "rating-legendary"; %>
+
+                    <div class="icon-overlay <%= ratingClass; %>">
+
+                        <i class="bi bi-hexagon-fill"></i>
+                        <div class="overlay-text fs-1 rating-text"><%= rating.toFixed(1); %></div>
+                    </div>
+                </div>
+
                 <% let minPlayers = data['Min. br. igrača']; %>
+
                 <% minPlayers = Math.max(minPlayers, 2); %>
                 <% let maxPlayers = data['Max. br. igrača']; %>
 
-                <% if (minPlayers === maxPlayers) { %>
-                <dd class="col">
-                    <% } else { %>
-                <dd class="col" style="margin-top: -4px;">
-                    <% } %>
+                <% let style = minPlayers === maxPlayers ? "" : "margin-top: -3.5px;"; %>
+                <div class="col fs-1" style="<%= style; %>">
                     <% for (let i = 0; i < minPlayers; i++) { %>
-                        <i class="bi bi-person-fill" style="margin-right: -6px;"></i>
+                        <i class="bi bi-person-fill" style="margin-right: -10px;"></i>
                     <% } %>
                     <% if (minPlayers !== maxPlayers) { %>
-                        <span class="text-secondary fs-5" style="margin-right: -6px;">(</span>
+                        <span class="text-secondary"
+                              style="position: relative; top: -3px; margin-right: -10px;">(</span>
                         <% for (let i = minPlayers; i < maxPlayers; i++) { %>
-                            <i class="bi bi-person-fill text-secondary" style="margin-right: -6px;"></i>
+                            <i class="bi bi-person-fill text-secondary" style="margin-right: -10px;"></i>
                         <% } %>
-                        <span class="text-secondary fs-5">)</span>
+                        <span class="text-secondary" style="position: relative; margin-left:1px; top: -3px;">)</span>
                     <% } %>
-                </dd>
+                </div>
+            </div>
 
-                <dt class="col-auto">
-                    Trajanje:
-                </dt>
-                <dd class="col">
+            <div class="row" style="font-size: 48px;">
+                <div class="col">
                     <% let duration = data["Trajanje (min)"]; %>
-                    <i class="bi bi-hourglass" style="margin-right: -6px;"></i>
+                    <i class="bi bi-clock-fill" style="margin-right: -4px;"></i>
                     <% if (duration > 20) { %>
-                        <i class="bi bi-hourglass" style="margin-right: -6px;"></i>
+                        <i class="bi bi-clock-fill" style="margin-right: -4px;"></i>
                     <% } else { %>
-                        <i class="bi bi-hourglass text-secondary" style="margin-right: -6px;"></i>
+                        <i class="bi bi-clock-fill text-secondary" style="margin-right: -4px;"></i>
                     <% } %>
                     <% if (duration > 30) { %>
-                        <i class="bi bi-hourglass" style="margin-right: -6px;"></i>
+                        <i class="bi bi-clock-fill" style="margin-right: -4px;"></i>
                     <% } else { %>
-                        <i class="bi bi-hourglass text-secondary" style="margin-right: -6px;"></i>
+                        <i class="bi bi-clock-fill text-secondary" style="margin-right: -4px;"></i>
                     <% } %>
-                </dd>
+                </div>
 
-                <dt class="col-auto">
-                    Težina:
-                </dt>
-                <dd class="col">
+                <div class="col">
                     <% let weight = data["Težina (5)"]; %>
                     <% let numWeight = Math.floor(2 * (weight - 0.5)); %>
                     <% for (let i = 0; i < numWeight; i++ ){ %>
-                        <i class="bi bi-lightning-charge-fill" style="margin-right: -6px;"></i>
+                        <i class="bi bi-puzzle-fill" style="margin-right: -5px;"></i>
                     <% } %>
                     <% for (let i = numWeight; i < 5; i++ ){ %>
-                        <i class="bi bi-lightning-charge-fill text-secondary" style="margin-right: -6px;"></i>
+                        <i class="bi bi-puzzle-fill text-secondary" style="margin-right: -5px;"></i>
                     <% } %>
-                </dd>
-            </dl>
+                </div>
+            </div>
+
         </div>
     </div>
 </article>
