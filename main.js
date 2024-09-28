@@ -42,9 +42,10 @@ const argv = minimist(process.argv.slice(2));
         } catch (err) {
             console.log(`Error: ${err.message}`);
         } finally {
-            await browser.close();
             console.log(`Screenshot '${name}' has been captured successfully`);
         }
     }
+
+    await browser.close();
 
 })();
