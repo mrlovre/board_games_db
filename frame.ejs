@@ -66,7 +66,7 @@
         }
 
         .rating-mid-low {
-            color: var(--bs-white);
+            color: var(--bs-light);
         }
 
         .rating-mid {
@@ -90,7 +90,7 @@
         }
 
         .rating-text {
-            color: var(--bs-white);
+            color: var(--bs-light);
         }
 
         :is(.rating-low, .rating-mid-low) .rating-text {
@@ -119,16 +119,16 @@
                 <h1 class="col fw-bold mb-0" style="/*font-size: 48px;*/"><%= data["Naslov"]; %></h1>
             </div>
             <div class="row">
-                <div class="col text-secondary" style="margin-right: -0.25rem !important">
+                <div class="col" style="margin-right: -0.25rem !important">
                     <% let genre = data["Žanr"]; %>
                     <% if (genre) { %>
                         <% for (const entry of genre.split(",")) { %>
-                            <button class="btn btn-outline-secondary btn-sm me-1 py-0 px-1"><%= entry.trim(); %></button>
+                            <button class="btn btn-outline-light btn-sm me-1 py-0 px-1"><%= entry.trim(); %></button>
                         <% } %>
                     <% } %>
                 </div>
 
-                <ul class="col-auto ps-0 mb-2 list-inline text-secondary" style="">
+                <ul class="col-auto ps-0 mb-2 list-inline" style="">
                     <% let designer = data["Dizajner"]; %>
                     <% if (designer) { %>
                         <li class="list-inline-item me-1"><%= designer; %></li>
@@ -206,8 +206,7 @@
                 <% minPlayers = Math.max(minPlayers, 2); %>
                 <% let maxPlayers = data['Max. br. igrača']; %>
 
-                <% let style = minPlayers === maxPlayers ? "" : "margin-top: -3.5px;"; %>
-                <div class="col fs-1" style="<%= style; %>">
+                <div class="col fs-1" style="margin-top: -3.5px;">
                     <% for (let i = 0; i < minPlayers; i++) { %>
                         <i class="bi bi-person-fill bs-blue" style="margin-right: -10px;"></i>
                     <% } %>
@@ -240,7 +239,7 @@
 
                 <div class="col">
                     <% let weight = data["Težina (5)"]; %>
-                    <% let numWeight = Math.floor(2 * (weight - 0.5)); %>
+                    <% let numWeight = Math.min(Math.floor(2 * (weight - 0.5)), 5); %>
                     <% for (let i = 0; i < numWeight; i++ ){ %>
                         <i class="bi bi-puzzle-fill bs-green" style="margin-right: -5px;"></i>
                     <% } %>
