@@ -15,6 +15,7 @@
 
         :root {
             --bs-purple-800: #2c1a4d;
+            --bs-purple-300: #a98eda;
         }
 
         article::before {
@@ -31,6 +32,18 @@
             opacity: 0.2;
         }
 
+        .navbar {
+            background: linear-gradient(to bottom, var(--bs-purple-300) 0%, var(--bs-purple-800) 100%);
+        }
+
+        .stats-box {
+            background-color: rgba(52, 58, 64, 0.5);
+            border-radius: 4px;
+            box-shadow: 0px 0px 8px black;
+            padding: 0px 8px;
+            text-align: center;
+        }
+
         .bg-purple-800 {
             background-color: var(--bs-purple-800);
         }
@@ -45,6 +58,18 @@
 
         .bs-blue {
             color: var(--bs-blue);
+        }
+
+        .bs-cyan {
+            color: var(--bs-cyan);
+        }
+
+        .bs-orange {
+            color: var(--bs-orange);
+        }
+
+        .bs-tertiary-color {
+            color: var(--bs-tertiary-color);
         }
 
         .icon-overlay {
@@ -157,81 +182,119 @@
             <h5 class="fw-semibold" style="min-height: 48px;">Probijte se kao pristalica kriminalaca pažljivo birajući na čiju prljavu igru ćete ovaj put pristati.</h5>
 
 
-            <div class="row align-items-center">
-                <div class="col" style="font-size: 72px;">
-                    
-                    
-                    
+            <div class="row mb-4 mt-4 align-items-center" style="">
+                <div class="offset-1 col-10 text-center" style="font-size: 72px;">
+                    <div class="stats-box">
+                        
+                        
+                        
 
-                    
-                    
-                    
-                    
-                    
-                    
+                        
+                        
+                        
+                        
+                        
+                        
 
-                    <div class="icon-overlay rating-epic" style="margin-left: -4px;">
-                        <i class="bi bi-hexagon-fill"></i>
-                        <div class="overlay-text fs-1 rating-text">7.6</div>
+                        <span class="fs-2 fw-bold text-end"
+                              style="font-variant: small-caps; vertical-align: middle; position:relative; top: -4px; width: 30%; display: inline-block;">Ocjena:</span>
+                        <div class="icon-overlay rating-epic" style="margin-left: -4px;">
+                            <i class="bi bi-hexagon-fill"></i>
+                            <div class="overlay-text fs-1 rating-text">7.6</div>
+                        </div>
+                        <span class="fs-2 fw-bold rating-epic text-start"
+                              style="font-variant: small-caps; vertical-align: middle; position:relative; top: -4px; margin-left: -4px; width: 30%; display: inline-block;">Mythic</span>
                     </div>
-                    <span class="rating-epic fs-5 fw-bold"
-                          style="font-variant: small-caps; vertical-align: middle; position:relative; top: -4px;">Epic</span>
-                </div>
-
-                
-
-                
-                
-
-                <div class="col fs-1" style="margin-top: -3.5px;">
-                    
-                        <i class="bi bi-person-fill bs-blue" style="margin-right: -10px;"></i>
-                    
-                        <i class="bi bi-person-fill bs-blue" style="margin-right: -10px;"></i>
-                    
-                    
-                        <span class="text-secondary"
-                              style="position: relative; top: -3px; margin-right: -10px;">(</span>
-                        
-                            <i class="bi bi-person-fill text-secondary" style="margin-right: -10px;"></i>
-                        
-                            <i class="bi bi-person-fill text-secondary" style="margin-right: -10px;"></i>
-                        
-                        <span class="text-secondary" style="position: relative; margin-left:1px; top: -3px;">)</span>
-                    
                 </div>
             </div>
 
-            <div class="row" style="font-size: 48px;">
-                <div class="col">
-                    
-                    <i class="bi bi-alarm-fill bs-yellow" style="margin-right: -4px;"></i>
-                    
-                        <i class="bi bi-alarm-fill bs-yellow" style="margin-right: -4px;"></i>
-                    
-                    
-                        <i class="bi bi-alarm-fill text-secondary" style="margin-right: -4px;"></i>
-                    
+            <div class="row mb-4" style="font-size: 2.5rem;">
+                
+
+                
+                
+
+                <div class="col-8">
+                    <div class="stats-box">
+                        
+                            <div class="pt-1 text-start text-uppercase fs-6 fw-bold bs-blue">Min br. igrača <span
+                                        class="bs-tertiary-color">/</span> <span class="bs-cyan">max br. igrača:</span>
+                            </div>
+                            <span style="margin-left: -10px;"></span>
+                            
+                                <i class="bi bi-person-fill bs-blue" style="margin-right: -10px;"></i>
+                            
+                                <i class="bi bi-person-fill bs-blue" style="margin-right: -10px;"></i>
+                            
+                            
+                                <i class="bi bi-person-fill bs-cyan" style="margin-right: -10px;"></i>
+                            
+                                <i class="bi bi-person-fill bs-cyan" style="margin-right: -10px;"></i>
+                            
+                        
+                    </div>
                 </div>
 
-                <div class="col">
-                    
-                    
-                    
-                        <i class="bi bi-puzzle-fill bs-green" style="margin-right: -5px;"></i>
-                    
-                        <i class="bi bi-puzzle-fill bs-green" style="margin-right: -5px;"></i>
-                    
-                        <i class="bi bi-puzzle-fill bs-green" style="margin-right: -5px;"></i>
-                    
-                        <i class="bi bi-puzzle-fill bs-green" style="margin-right: -5px;"></i>
-                    
-                        <i class="bi bi-puzzle-fill bs-green" style="margin-right: -5px;"></i>
-                    
-                    
+                <div class="col-4">
+                    <div class="stats-box">
+                        <div class="pt-1 text-start text-uppercase fs-6 fw-bold bs-yellow">Vrijeme:</div>
+                        <span style="margin-left: 0px;"></span>
+                        
+                        <i class="bi bi-alarm-fill bs-yellow" style="margin-right: 0px;"></i>
+                        
+                            <i class="bi bi-alarm-fill bs-yellow" style="margin-right: 0px;"></i>
+                        
+                        
+                            <i class="bi bi-alarm-fill text-secondary" style="margin-right: 0px;"></i>
+                        
+                    </div>
                 </div>
             </div>
 
+            <div class="row mb-4" style="font-size: 2.5rem;">
+                <div class="col-6">
+                    <div class="stats-box">
+                        <div class="pt-1 text-start text-uppercase fs-6 fw-bold bs-green">Težina:</div>
+                        <span style="margin-left: -4px;"></span>
+                        
+                        
+                        
+                            <i class="bi bi-puzzle-fill bs-green" style="margin-right: -4px;"></i>
+                        
+                            <i class="bi bi-puzzle-fill bs-green" style="margin-right: -4px;"></i>
+                        
+                            <i class="bi bi-puzzle-fill bs-green" style="margin-right: -4px;"></i>
+                        
+                            <i class="bi bi-puzzle-fill bs-green" style="margin-right: -4px;"></i>
+                        
+                            <i class="bi bi-puzzle-fill bs-green" style="margin-right: -4px;"></i>
+                        
+                        
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <div class="stats-box">
+                        <div class="pt-1 text-start text-uppercase fs-6 fw-bold bs-orange">Popularnost:</div>
+                        <span style="margin-left: -8px;"></span>
+                        
+                        
+                        
+                            <i class="bi bi-fire bs-orange" style="margin-right: -8px;"></i>
+                        
+                        
+                            <i class="bi bi-fire text-secondary" style="margin-right: -8px;"></i>
+                        
+                            <i class="bi bi-fire text-secondary" style="margin-right: -8px;"></i>
+                        
+                            <i class="bi bi-fire text-secondary" style="margin-right: -8px;"></i>
+                        
+                            <i class="bi bi-fire text-secondary" style="margin-right: -8px;"></i>
+                        
+                    </div>
+                </div>
+
+            </div>
         </div>
     </div>
 </article>
