@@ -42,7 +42,7 @@ const argv = minimist(process.argv.slice(2));
         } catch (err) {
             console.log(`Error: ${err.message}`);
         } finally {
-            console.log(`Screenshot '${name}' has been captured successfully`);
+            console.log(`Screenshot '${name}' has been captured successfully.`);
         }
     }
 
