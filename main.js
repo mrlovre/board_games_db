@@ -19,33 +19,42 @@ const argv = minimist(process.argv.slice(2));
 
 (async () => {
 
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({
+	headless: true,
+	executablePath: '/usr/bin/chromium'
+    });
+
     const page = await browser.newPage();
 
     await page.setViewport({width: 768, height: 620, deviceScaleFactor: 2.0});
 
-    for (const name of argv["_"]) {
-        let boxBase64 =  base64_encode(`./box/${name}.jpg`);
-        let showBase64 = base64_encode(`./show/${name}.jpg`);
+    try {
+        for (const name of argv["_"]) {
+            let boxBase64 =  base64_encode(`./box/${name}.jpg`);
+            let showBase64 = base64_encode(`./show/${name}.jpg`);
 
-        let data = require(`./json/${name}.json`);
-        data["box"] = boxBase64;
-        data["show"] = showBase64;
+            let data = require(`./json/${name}.json`);
+            data["box"] = boxBase64;
+            data["show"] = showBase64;
 
-        let html = await ejs.renderFile('frame.ejs', {data: data});
-        fs.writeFile(`./html/${name}.html`, html, () => false);
+            let html = (await ejs.renderFile('frame.ejs', {data: data})).replace(/[ \t]+$/gm, '');
+            await fs.promises.writeFile(`./html/${name}.html`, html);
 
-        await page.setContent(html, {waitUntil: ["load", "networkidle0"]});
+            // The template embeds its styles, icons, and images. Wait for those
+            // assets directly instead of waiting for unrelated browser traffic.
+            await page.setContent(html, {waitUntil: "domcontentloaded"});
+            await page.evaluate(async () => {
+                await document.fonts.ready;
+                await Promise.all(Array.from(document.images, image => image.decode()));
+            });
 
-        try {
             await page.screenshot({path: `png/${name}.png`});
-        } catch (err) {
-            console.log(`Error: ${err.message}`);
-        } finally {
             console.log(`Screenshot '${name}' has been captured successfully.`);
         }
+    } finally {
+        await browser.close();
     }
-
-    await browser.close();
-
-})();
+})().catch(error => {
+    console.error(error);
+    process.exitCode = 1;
+});

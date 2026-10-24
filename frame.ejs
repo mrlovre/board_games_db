@@ -1,318 +1,259 @@
+<%
+    const rating = data['Ocjena (10)'];
+    const tiers = [
+        [0, 'Common', '#6c757d', '#ffffff'],
+        [5.0, 'Uncommon', '#f8f9fa', '#182026'],
+        [5.8, 'Special', '#20c997', '#102c24'],
+        [7.0, 'Rare', '#198754', '#ffffff'],
+        [7.3, 'Epic', '#0dcaf0', '#102c34'],
+        [7.5, 'Mythic', '#0d6efd', '#ffffff'],
+        [7.9, 'Legendary', '#6f42c1', '#ffffff']
+    ];
+    const tier = tiers.filter(([minimum]) => rating >= minimum).pop() || tiers[0];
+    const [, ratingText, accent, contrast] = tier;
+    const icon = name => include('node_modules/bootstrap-icons/icons/' + name + '.svg');
+    const title = data['Naslov'];
+    const minPlayers = data['Min. br. igrača'];
+    const maxPlayers = data['Max. br. igrača'];
+    const duration = data['Trajanje (min)'];
+    const weight = data['Težina (5)'];
+    const popularity = data['BGG Ocjena (10)'];
+    const numWeight = Number.isFinite(weight) ? Math.max(0, Math.min(Math.floor(2 * (weight - 0.5)), 5)) : 0;
+    const numPop = Number.isFinite(popularity) ? Math.max(0, Math.min(Math.floor(2 * (popularity - 5)), 5)) : 0;
+%>
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="dark">
+<html lang="hr">
 <head>
-    <title>Board Games Database</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
+    <title><%= title %> — Game Night</title>
     <style>
-        * {
-            font-family: "Source Sans Pro", sans-serif;
-        }
-
+        * { box-sizing: border-box; }
         :root {
-            --bs-purple-800: #2c1a4d;
-            --bs-purple-300: #a98eda;
+            --accent: <%= accent %>;
+            --contrast: <%= contrast %>;
+            --text: #eef1f4;
+            --muted: #b5bec8;
+            --blue: #66a8ff;
+            --cyan: #36d8f4;
+            --green: #3bc88b;
+            --yellow: #ffd24a;
+            --orange: #ffa34e;
         }
-
-        article::before {
-            margin-left: -12px;
-            margin-right: -12px;
-            background: url("data:image/jpg;base64,<%= data['show']; %>") no-repeat center center fixed;
-            content: '';
-            z-index: -1;
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            -webkit-background-size: cover;
-            -webkit-filter: blur(1px);
-            opacity: 0.2;
+        body {
+            margin: 0;
+            width: 768px;
+            height: 620px;
+            font-family: "Source Sans Pro", "Segoe UI", Arial, sans-serif;
+            color: var(--text);
+            background: #20272d;
         }
-
-        .navbar {
-            background: linear-gradient(to bottom, var(--bs-purple-300) 0%, var(--bs-purple-800) 100%);
+        svg { width: 1em; height: 1em; fill: currentColor; flex-shrink: 0; }
+        .game-title {
+            height: 96px;
+            display: flex;
+            align-items: center;
+            padding: 14px 24px;
+            background: var(--accent);
+            color: var(--contrast);
         }
-
-        .stats-box {
-            background-color: rgba(52, 58, 64, 0.5);
-            border-radius: 4px;
-            box-shadow: 0px 0px 8px black;
-            padding: 0px 8px;
-            text-align: center;
+        h1 {
+            margin: 0;
+            font-size: <%= title.length > 55 ? 28 : title.length > 35 ? 31 : 36 %>px;
+            font-weight: 750;
+            line-height: 1.12;
+            letter-spacing: -0.6px;
+            text-wrap: balance;
         }
-
-        .bg-purple-800 {
-            background-color: var(--bs-purple-800);
-        }
-
-        .bs-green {
-            color: var(--bs-green);
-        }
-
-        .bs-yellow {
-            color: var(--bs-yellow);
-        }
-
-        .bs-blue {
-            color: var(--bs-blue);
-        }
-
-        .bs-cyan {
-            color: var(--bs-cyan);
-        }
-
-        .bs-orange {
-            color: var(--bs-orange);
-        }
-
-        .bs-tertiary-color {
-            color: var(--bs-tertiary-color);
-        }
-
-        .icon-overlay {
+        .card-body {
             position: relative;
-            display: inline-block;
-            top: 4px;
+            isolation: isolate;
+            height: 524px;
+            padding: 22px 20px;
+            display: grid;
+            grid-template-columns: 168px minmax(0, 1fr);
+            gap: 24px;
+            background: color-mix(in srgb, var(--accent) 7%, #20272d);
         }
-
-        .icon-overlay .overlay-text {
+        .card-body::before {
+            content: '';
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, calc(-50% - 3px));
-            font-weight: bold;
+            inset: 0;
+            z-index: -1;
+            background: url("data:image/jpeg;base64,<%= data['show'] %>") center / cover;
+            opacity: 0.13;
         }
-
-        .rating-low {
-            color: var(--bs-gray);
+        .cover-column { display: flex; flex-direction: column; min-height: 0; }
+        .cover {
+            display: block;
+            width: 100%;
+            max-height: 375px;
+            object-fit: contain;
+            object-position: top;
+            border-radius: 5px;
         }
-
-        .rating-mid-low {
-            color: var(--bs-light);
+        .game-night {
+            margin-top: auto;
+            padding-top: 16px;
+            border-top: 1px solid color-mix(in srgb, var(--accent) 50%, transparent);
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
         }
-
-        .rating-mid {
-            color: var(--bs-teal);
+        .game-night svg { font-size: 25px; }
+        .game-night span {
+            font-size: 20px;
+            font-weight: 800;
+            font-variant: small-caps;
+            line-height: 1.05;
+            text-align: center;
+            letter-spacing: 0.8px;
         }
-
-        .rating-mid-high {
-            color: var(--bs-green);
+        .details {
+            min-width: 0;
+            display: grid;
+            grid-template-rows: auto minmax(0, 1fr) 100px 188px;
+            gap: 16px;
         }
-
-        .rating-high {
-            color: var(--bs-cyan);
+        .genres { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 8px; }
+        .genre {
+            border: 1px solid #8c99a5;
+            border-radius: 4px;
+            padding: 2px 7px;
+            font-size: 13px;
+            line-height: 1.3;
         }
-
-        .rating-epic {
-            color: var(--bs-blue);
+        .credits { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.35; }
+        .credits span + span::before { content: ' · '; padding: 0 3px; }
+        .description { margin: 0; font-size: 18px; font-weight: 600; line-height: 1.4; }
+        .panel {
+            background: rgba(25, 31, 38, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.09);
+            border-radius: 6px;
         }
-
-        .rating-legendary {
-            color: var(--bs-purple);
+        .rating {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
         }
-
-        .rating-text {
-            color: var(--bs-light);
+        .rating-label { font-size: 24px; font-weight: 750; font-variant: small-caps; }
+        .rating-badge { position: relative; color: var(--accent); width: 76px; height: 82px; }
+        .rating-badge svg { width: 100%; height: 100%; }
+        .rating-value {
+            position: absolute;
+            inset: 0;
+            display: grid;
+            place-items: center;
+            font-size: 30px;
+            font-weight: 800;
+            color: var(--contrast);
         }
-
-        :is(.rating-low, .rating-mid-low) .rating-text {
-            color: var(--bs-black);
+        .rating-tier { color: var(--accent); font-size: 25px; font-weight: 750; font-variant: small-caps; }
+        .metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .metric { padding: 10px 12px; min-width: 0; }
+        .metric h2 {
+            margin: 0 0 8px;
+            font-size: 12px;
+            line-height: 1;
+            font-weight: 750;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
         }
-
+        .metric-content { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+        .icons { display: flex; align-items: center; gap: 3px; font-size: 25px; }
+        .icons .inactive { color: #55616d; }
+        .metric-value { font-size: 18px; font-weight: 700; white-space: nowrap; }
+        .metric-value small { font-size: 11px; font-weight: 500; }
+        .players { color: var(--blue); }
+        .players .additional { color: var(--cyan); }
+        .players .icons { gap: 0; font-size: <%= maxPlayers > 6 ? 21 : 25 %>px; }
+        .time { color: var(--yellow); }
+        .weight { color: var(--green); }
+        .popularity { color: var(--orange); }
+        .weight .icons, .popularity .icons { font-size: 24px; }
     </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg bg-purple-800">
-    <div class="container-fluid justify-content-center pt-2">
-        <span class="fs-1 text-light" style="font-variant: small-caps;">
-            <i class="bi bi-dice-4-fill pe-1"></i>
-            <b>Game Night</b>
-            <i class="bi bi-dice-3-fill ps-1"></i>
-        </span>
-    </div>
-</nav>
-<article class="container-fluid">
-    <div class="row pt-3">
-        <div class="col-3 justify-content-center">
-            <img class="img-fluid rounded" src="data:/image/jpg;base64,<%- data['box'] %>" alt="">
+<header class="game-title"><h1><%= title %></h1></header>
+<main class="card-body">
+    <aside class="cover-column">
+        <img class="cover" src="data:image/jpeg;base64,<%= data['box'] %>" alt="<%= title %> — naslovnica">
+        <div class="game-night" aria-label="Game Night">
+            <%- icon('dice-4-fill') %><span>Game<br>Night</span><%- icon('dice-3-fill') %>
         </div>
-        <div class="col-9">
-            <div class="row align-items-center justify-content-between">
-                <h1 class="col fw-bold mb-0" style="/*font-size: 48px;*/"><%= data["Naslov"]; %></h1>
+    </aside>
+    <section class="details" aria-label="Podaci o igri">
+        <div class="metadata">
+            <div class="genres">
+                <% for (const genre of (data['Žanr'] || '').split(',').filter(Boolean)) { %>
+                    <span class="genre"><%= genre.trim() %></span>
+                <% } %>
             </div>
-            <div class="row">
-                <div class="col" style="margin-right: -0.25rem !important">
-                    <% let genre = data["Žanr"]; %>
-                    <% if (genre) { %>
-                        <% for (const entry of genre.split(",")) { %>
-                            <button class="btn btn-outline-light btn-sm me-1 py-0 px-1"><%= entry.trim(); %></button>
+            <p class="credits">
+                <% for (const value of [data['Dizajner'], data['Izdavač'], data['Godina']].filter(Boolean)) { %>
+                    <span><%= value %></span>
+                <% } %>
+            </p>
+        </div>
+        <p class="description"><%= data['Opis (HR)'] || data['Opis (EN)'] %></p>
+        <div class="panel rating">
+            <span class="rating-label">Ocjena:</span>
+            <span class="rating-badge">
+                <%- icon('hexagon-fill') %>
+                <span class="rating-value"><%= Number.isFinite(rating) ? rating.toFixed(1) : '—' %></span>
+            </span>
+            <span class="rating-tier"><%= ratingText %></span>
+        </div>
+        <div class="metrics">
+            <div class="panel metric players">
+                <h2>Broj igrača</h2>
+                <div class="metric-content">
+                    <span class="icons" aria-hidden="true">
+                        <% for (let i = 0; i < (maxPlayers > 8 ? 1 : maxPlayers); i++) { %>
+                            <span class="<%= i >= minPlayers ? 'additional' : '' %>"><%- icon('person-fill') %></span>
                         <% } %>
-                    <% } %>
-                </div>
-
-                <ul class="col-auto ps-0 mb-2 list-inline" style="">
-                    <% let designer = data["Dizajner"]; %>
-                    <% if (designer) { %>
-                        <li class="list-inline-item me-1"><%= designer; %></li>
-                        <li class="list-inline-item me-1">&bull;</li>
-                    <% } %>
-
-                    <% let publisher = data["Izdavač"]; %>
-                    <% if (publisher) { %>
-                        <li class="list-inline-item me-1"><%= publisher; %></li>
-                        <li class="list-inline-item me-1">&bull;</li>
-                    <% } %>
-
-                    <% let year = data["Godina"]; %>
-                    <% if (year) { %>
-                        <li class="list-inline-item"><%= year; %></li>
-                    <% } %>
-                </ul>
-            </div>
-
-            <% let desc; %>
-            <% if (data["Opis (HR)"]) { %>
-                <% desc = data["Opis (HR)"]; %>
-            <% } else { %>
-                <% desc = data["Opis (EN)"]; %>
-            <% } %>
-            <h5 class="fw-semibold" style="min-height: 48px;"><%= desc; %></h5>
-
-
-            <div class="row mb-4 mt-4 align-items-center" style="">
-                <div class="offset-1 col-10 text-center" style="font-size: 72px;">
-                    <div class="stats-box">
-                        <% let rating = data["Ocjena (10)"]; %>
-                        <% let ratingClass = "rating-low"; %>
-                        <% let ratingText = "Common" %>
-
-                        <% if (rating >= 5.0) {
-                            ratingClass = "rating-mid-low";
-                            ratingText = "Uncommon";
-                        } %>
-                        <% if (rating >= 5.8) {
-                            ratingClass = "rating-mid";
-                            ratingText = "Special";
-
-                        } %>
-                        <% if (rating >= 7.0) {
-                            ratingClass = "rating-mid-high";
-                            ratingText = "Rare";
-
-                        } %>
-                        <% if (rating >= 7.3) {
-                            ratingClass = "rating-high";
-                            ratingText = "Epic";
-
-                        } %>
-                        <% if (rating >= 7.5) {
-                            ratingClass = "rating-epic";
-                            ratingText = "Mythic";
-
-                        } %>
-                        <% if (rating >= 7.9) {
-                            ratingClass = "rating-legendary";
-                            ratingText = "Legendary";
-                        } %>
-
-                        <span class="fs-2 fw-bold text-end"
-                              style="font-variant: small-caps; vertical-align: middle; position:relative; top: -4px; width: 30%; display: inline-block;">Ocjena:</span>
-                        <div class="icon-overlay <%= ratingClass; %>" style="margin-left: -4px;">
-                            <i class="bi bi-hexagon-fill"></i>
-                            <div class="overlay-text fs-1 rating-text"><%= rating.toFixed(1); %></div>
-                        </div>
-                        <span class="fs-2 fw-bold <%= ratingClass; %> text-start"
-                              style="font-variant: small-caps; vertical-align: middle; position:relative; top: -4px; margin-left: -4px; width: 30%; display: inline-block;"><%= ratingText; %></span>
-                    </div>
+                    </span>
+                    <span class="metric-value"><%= minPlayers === maxPlayers ? minPlayers : minPlayers + '–' + maxPlayers %></span>
                 </div>
             </div>
-
-            <div class="row mb-4" style="font-size: 2.5rem;">
-                <% let minPlayers = data['Min. br. igrača']; %>
-
-                <% minPlayers = Math.max(minPlayers, 2); %>
-                <% let maxPlayers = data['Max. br. igrača']; %>
-
-                <div class="col-8">
-                    <div class="stats-box">
-                        <% if (minPlayers === maxPlayers) { %>
-                            <div class="pt-1 text-start text-uppercase fs-6 fw-bold bs-blue">Br. igrača:</div>
-                            <span style="margin-left: -10px;"></span>
-                            <% for (let i = 0; i < minPlayers; i++) { %>
-                                <i class="bi bi-person-fill bs-blue" style="margin-right: -10px;"></i>
-                            <% } %>
-                        <% } else { %>
-                            <div class="pt-1 text-start text-uppercase fs-6 fw-bold bs-blue">Min br. igrača <span
-                                        class="bs-tertiary-color">/</span> <span class="bs-cyan">max br. igrača:</span>
-                            </div>
-                            <span style="margin-left: -10px;"></span>
-                            <% for (let i = 0; i < minPlayers; i++) { %>
-                                <i class="bi bi-person-fill bs-blue" style="margin-right: -10px;"></i>
-                            <% } %>
-                            <% for (let i = minPlayers; i < maxPlayers; i++) { %>
-                                <i class="bi bi-person-fill bs-cyan" style="margin-right: -10px;"></i>
-                            <% } %>
+            <div class="panel metric time">
+                <h2>Vrijeme</h2>
+                <div class="metric-content">
+                    <span class="icons" aria-hidden="true">
+                        <% for (let i = 0; i < 3; i++) { %>
+                            <span class="<%= i === 0 || (i === 1 && duration > 20) || (i === 2 && duration > 30) ? '' : 'inactive' %>"><%- icon('alarm-fill') %></span>
                         <% } %>
-                    </div>
-                </div>
-
-                <div class="col-4">
-                    <div class="stats-box">
-                        <div class="pt-1 text-start text-uppercase fs-6 fw-bold bs-yellow">Vrijeme:</div>
-                        <span style="margin-left: 0px;"></span>
-                        <% let duration = data["Trajanje (min)"]; %>
-                        <i class="bi bi-alarm-fill bs-yellow" style="margin-right: 0px;"></i>
-                        <% if (duration > 20) { %>
-                            <i class="bi bi-alarm-fill bs-yellow" style="margin-right: 0px;"></i>
-                        <% } else { %>
-                            <i class="bi bi-alarm-fill text-secondary" style="margin-right: 0px;"></i>
-                        <% } %>
-                        <% if (duration > 30) { %>
-                            <i class="bi bi-alarm-fill bs-yellow" style="margin-right: 0px;"></i>
-                        <% } else { %>
-                            <i class="bi bi-alarm-fill text-secondary" style="margin-right: 0px;"></i>
-                        <% } %>
-                    </div>
+                    </span>
+                    <span class="metric-value"><%= duration %> <small>min</small></span>
                 </div>
             </div>
-
-            <div class="row mb-4" style="font-size: 2.5rem;">
-                <div class="col-6">
-                    <div class="stats-box">
-                        <div class="pt-1 text-start text-uppercase fs-6 fw-bold bs-green">Težina:</div>
-                        <span style="margin-left: -4px;"></span>
-                        <% let weight = data["Težina (5)"]; %>
-                        <% let numWeight = Math.min(Math.floor(2 * (weight - 0.5)), 5); %>
-                        <% for (let i = 0; i < numWeight; i++ ){ %>
-                            <i class="bi bi-puzzle-fill bs-green" style="margin-right: -4px;"></i>
+            <div class="panel metric weight">
+                <h2>Težina</h2>
+                <div class="metric-content">
+                    <span class="icons" aria-hidden="true">
+                        <% for (let i = 0; i < 5; i++) { %>
+                            <span class="<%= i < numWeight ? '' : 'inactive' %>"><%- icon('puzzle-fill') %></span>
                         <% } %>
-                        <% for (let i = numWeight; i < 5; i++ ){ %>
-                            <i class="bi bi-puzzle-fill text-secondary" style="margin-right: -4px;"></i>
-                        <% } %>
-                    </div>
+                    </span>
+                    <span class="metric-value"><%= Number.isFinite(weight) ? weight.toFixed(2) : '—' %></span>
                 </div>
-
-                <div class="col-6">
-                    <div class="stats-box">
-                        <div class="pt-1 text-start text-uppercase fs-6 fw-bold bs-orange">Popularnost:</div>
-                        <span style="margin-left: -8px;"></span>
-                        <% let popularity = data["BGG Ocjena (10)"]; %>
-                        <% let numPop = Math.max(Math.min(Math.floor(2 * (popularity - 5.0)), 5), 0); %>
-                        <% for (let i = 0; i < numPop; i++ ){ %>
-                            <i class="bi bi-fire bs-orange" style="margin-right: -8px;"></i>
+            </div>
+            <div class="panel metric popularity">
+                <h2>Popularnost</h2>
+                <div class="metric-content">
+                    <span class="icons" aria-hidden="true">
+                        <% for (let i = 0; i < 5; i++) { %>
+                            <span class="<%= i < numPop ? '' : 'inactive' %>"><%- icon('fire') %></span>
                         <% } %>
-                        <% for (let i = numPop; i < 5; i++ ){ %>
-                            <i class="bi bi-fire text-secondary" style="margin-right: -8px;"></i>
-                        <% } %>
-                    </div>
+                    </span>
+                    <span class="metric-value"><%= Number.isFinite(popularity) ? popularity.toFixed(1) : '—' %></span>
                 </div>
-
             </div>
         </div>
-    </div>
-</article>
+    </section>
+</main>
 </body>
 </html>
