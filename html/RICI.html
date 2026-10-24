@@ -1,5 +1,5 @@
-
 <!DOCTYPE html>
+
 <html lang="hr">
 <head>
     <meta charset="utf-8">
@@ -28,7 +28,7 @@
         }
         svg { width: 1em; height: 1em; fill: currentColor; flex-shrink: 0; }
         .game-title {
-            height: 96px;
+            height: 72px;
             display: flex;
             align-items: center;
             padding: 14px 24px;
@@ -95,16 +95,25 @@
             grid-template-rows: auto minmax(0, 1fr) 100px 188px;
             gap: 16px;
         }
-        .genres { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 8px; }
-        .genre {
-            border: 1px solid #8c99a5;
-            border-radius: 4px;
-            padding: 2px 7px;
-            font-size: 13px;
-            line-height: 1.3;
+        .genres {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 8px;
         }
-        .credits { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.35; }
-        .credits span + span::before { content: ' · '; padding: 0 3px; }
+        .genre {
+            border: 2px solid var(--muted);
+            border-radius: 4px;
+            padding: 4px 8px;
+        }
+        .credits {
+            margin: 0;
+            color: var(--muted);
+        }
+        .credits span + span::before {
+            content: ' · ';
+            padding: 0 3px;
+        }
         .description { margin: 0; font-size: 18px; font-weight: 600; line-height: 1.4; }
         .panel {
             background: rgba(25, 31, 38, 0.8);
@@ -112,12 +121,13 @@
             border-radius: 6px;
         }
         .rating {
-            display: flex;
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
             align-items: center;
             justify-content: center;
             gap: 16px;
         }
-        .rating-label { font-size: 24px; font-weight: 750; font-variant: small-caps; }
+        .rating-label { font-size: 24px; font-weight: 750; font-variant: small-caps; justify-self: right; }
         .rating-badge { position: relative; color: var(--accent); width: 76px; height: 82px; }
         .rating-badge svg { width: 100%; height: 100%; }
         .rating-value {
@@ -129,7 +139,7 @@
             font-weight: 800;
             color: var(--contrast);
         }
-        .rating-tier { color: var(--accent); font-size: 25px; font-weight: 750; font-variant: small-caps; }
+        .rating-tier { color: var(--accent); font-size: 25px; font-weight: 750; font-variant: small-caps; justify-self: left; }
         .metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
         .metric { padding: 10px 12px; min-width: 0; }
         .metric h2 {
@@ -141,17 +151,17 @@
             letter-spacing: 0.6px;
         }
         .metric-content { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-        .icons { display: flex; align-items: center; gap: 3px; font-size: 25px; }
+        .icons { display: flex; align-items: center; gap: 4px; font-size: 28px; }
         .icons .inactive { color: #55616d; }
         .metric-value { font-size: 18px; font-weight: 700; white-space: nowrap; }
         .metric-value small { font-size: 11px; font-weight: 500; }
         .players { color: var(--blue); }
         .players .additional { color: var(--cyan); }
-        .players .icons { gap: 0; font-size: 25px; }
+        .players .icons { gap: 0; font-size: 28px; }
         .time { color: var(--yellow); }
         .weight { color: var(--green); }
         .popularity { color: var(--orange); }
-        .weight .icons, .popularity .icons { font-size: 24px; }
+        .weight .icons, .popularity .icons { font-size: 28px; }
     </style>
 </head>
 <body>
@@ -212,7 +222,6 @@
 </svg></span>
 
                     </span>
-                    <span class="metric-value">2</span>
                 </div>
             </div>
             <div class="panel metric time">
@@ -233,7 +242,6 @@
 </svg></span>
 
                     </span>
-                    <span class="metric-value">30 <small>min</small></span>
                 </div>
             </div>
             <div class="panel metric weight">
@@ -262,7 +270,6 @@
 </svg></span>
 
                     </span>
-                    <span class="metric-value">2.50</span>
                 </div>
             </div>
             <div class="panel metric popularity">
@@ -291,7 +298,6 @@
 </svg></span>
 
                     </span>
-                    <span class="metric-value">5.5</span>
                 </div>
             </div>
         </div>
